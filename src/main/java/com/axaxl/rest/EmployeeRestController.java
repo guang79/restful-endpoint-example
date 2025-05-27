@@ -1,5 +1,6 @@
 package com.axaxl.rest;
 
+import com.axaxl.entity.Department;
 import com.axaxl.entity.Employee;
 import com.axaxl.repository.EmployeeRepository;
 import io.swagger.v3.oas.annotations.Operation;
@@ -32,10 +33,17 @@ public class EmployeeRestController {
 
     @GetMapping("/{id}")
     @Operation(operationId = "getEmployeeById", summary = "GetEmployeeById()")
-    public ResponseEntity<Employee> getEmployeeById(@PathVariable Long id) {
+    public ResponseEntity<Employee> getEmployeeById(@PathVariable("id") Long id) {
         return employeeRepository.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/ids/{ids}")
+    @Operation(operationId = "getEmployeeByIds", summary = "GetEmployeeByIds()")
+    public ResponseEntity<List<Employee>> getEmployeeByIds(@PathVariable("ids") List<Long> ids) {
+        List<Employee> employees = employeeRepository.findAllById(ids);
+        return ResponseEntity.ok(employees);
     }
 
     @PostMapping("/update")

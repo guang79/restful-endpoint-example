@@ -39,6 +39,21 @@ public class Employee {
 
     public Employee() {}
 
+    public Employee(String firstName, String lastName, String phoneNumber, String email, Double salary, Long departmentId, String jobTitle) {
+        this(firstName, lastName, phoneNumber, email, salary, departmentId, jobTitle, true);
+    }
+
+    public Employee(String firstName, String lastName, String phoneNumber, String email, Double salary, Long departmentId, String jobTitle, boolean isCurrent) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.salary = salary;
+        this.departmentId = departmentId;
+        this.jobTitle = jobTitle;
+        this.isCurrent = isCurrent;
+    }
+
     public Long getId() {
         return id;
     }

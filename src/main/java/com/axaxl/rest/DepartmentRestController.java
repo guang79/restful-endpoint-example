@@ -31,12 +31,19 @@ public class DepartmentRestController {
 
     @GetMapping("/{id}")
     @Operation(operationId = "getDepartmentById", summary = "GetDepartmentById()")
-    public ResponseEntity<Department> getDepartmentById(@PathVariable Long id) {
+    public ResponseEntity<Department> getDepartmentById(@PathVariable("id") Long id) {
         return departmentRepository.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/ids/{ids}")
+    @Operation(operationId = "getDepartmentByIds", summary = "GetDepartmentByIds()")
+    public ResponseEntity<List<Department>> getDepartmentByIds(@PathVariable("ids") List<Long> ids) {
+        List<Department> departments = departmentRepository.findAllById(ids);
+        return ResponseEntity.ok(departments);
+    }
+    
     @PostMapping("/update")
     @Operation(operationId = "updateDepartment", summary = "UpdateDepartment()")
     public ResponseEntity<String> updateDepartment(@RequestBody Department department) {
